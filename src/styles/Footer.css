@@ -1,0 +1,36 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  padding: 1rem 2rem;
+  position: relative;
+  min-height: 60px;
+  box-sizing: border-box;
+}
+
+.footer-logo-placeholder {
+  width: 40px;
+  height: 40px;
+  background: #555;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: grey;
+  font-size: 0.8rem;
+  user-select: none;
+  margin-left: 30px;
+}
+
+.footer-text {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.logo-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}

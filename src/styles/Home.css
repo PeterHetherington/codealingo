@@ -4,8 +4,29 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   justify-content: flex-start;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 2rem;
+}
+
+.logo-placeholder {
+  padding: 0.5rem 1rem;
+  border: 1px solid black;
+  color: darkgray;
+  background: white;
+  font-weight: bold;
+  user-select: none;
+  max-width: 150px;
+  text-align: center;
+}
+
+.home-content {
+  flex: 1;
 }
 
 .home-content h1 {
@@ -16,4 +37,11 @@
 .home-content p {
   font-size: 1.25rem;
   color: #555;
+}
+
+footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
 }
