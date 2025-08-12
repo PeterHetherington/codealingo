@@ -1,11 +1,14 @@
+import Link from "next/link";
+
 export default function NavBar() {
+  const userId = "123"; //we will/can change uid to required uid when needed,this is a placeholder right now as uncertain of id assign method. Dillon//
   return (
     <nav className="navbar">
-      <a href="/">Home</a>
-      <a href="/about">Lessons</a>
-      <a href="/contact" className="account-link">
+      <Link href="/">Home</Link>
+      <Link href="/about">Lessons</Link>
+      <Link href={`/users/${userId}`} className="account-link">
         Account
-      </a>
+      </Link>
     </nav>
   );
 }
