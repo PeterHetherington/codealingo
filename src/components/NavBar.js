@@ -5,7 +5,8 @@ export default function NavBar() {
   return (
     <nav className="navbar">
       <Link href="/">Home</Link>
-      <Link href="/about">Lessons</Link>
+      <Link href="/languages">Languages</Link>
+      <Link href="/courselayout">Lessons</Link>
       <Link href={`/users/${userId}`} className="account-link">
         Account
       </Link>
