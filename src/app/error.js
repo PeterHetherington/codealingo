@@ -6,10 +6,10 @@ import Link from "next/link";
 export default function Error({ error, reset }) {
   return (
     <html>
-      <body className="text-white">
+      <body>
         <div className="flex flex-col p-5 text-center gap-4">
           <h2>Sorry, something went wrong</h2>
-          {/* <p>{error.message}</p> */}
+          <p>{error.message}</p>
           <button
             onClick={() => reset()}
             className="p-3 border rounded-2xl self-center"
