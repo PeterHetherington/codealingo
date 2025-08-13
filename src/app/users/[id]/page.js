@@ -1,10 +1,12 @@
 //still needs ability to save data to actual table.Dillon//
+
+// TODO redo page to display other users profiles
+// doesn't need to be a client
 "use client";
 import React, { useState } from "react";
-import NavBar from "../../../components/NavBar";
 import "../../../styles/Profile.css";
 
-export default function Profile({ params }) {
+export default function Users({ params }) {
   const { id } = React.use(params);
 
   const [username, setUsername] = useState("");
@@ -17,7 +19,6 @@ export default function Profile({ params }) {
 
   return (
     <>
-      <NavBar />
       <main>
         <div className="profile-top">
           <div className="profile-left">
@@ -25,7 +26,7 @@ export default function Profile({ params }) {
             <h1>Profile Page for {id}</h1>
           </div>
 
-          <form onSubmit={handleSubmit}>
+          {/* <form onSubmit={handleSubmit}>
             <label>
               Username:
               <input
@@ -46,7 +47,7 @@ export default function Profile({ params }) {
             </label>
 
             <button type="submit">Save</button>
-          </form>
+          </form> */}
         </div>
       </main>
     </>
