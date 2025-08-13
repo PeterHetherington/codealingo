@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Error({ error, reset }) {
   return (
     <html>
-      <body>
+      <body className="text-white">
         <div className="flex flex-col p-5 text-center gap-4">
           <h2>Sorry, something went wrong</h2>
           {/* <p>{error.message}</p> */}

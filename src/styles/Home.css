@@ -8,11 +8,11 @@
   justify-content: flex-start;
 }
 
-.header {
+/* .header {
   display: flex;
   justify-content: flex-end;
   padding: 2rem;
-}
+} */
 
 .logo-placeholder {
   padding: 0.5rem 1rem;
