@@ -12,7 +12,7 @@
 .footer-logo-placeholder {
   width: 40px;
   height: 40px;
-  background: #555;
+  /* background: #555; */
   border-radius: 4px;
   display: flex;
   align-items: center;

@@ -29,19 +29,20 @@
   flex: 1;
 }
 
-.home-content h1 {
+/* .home-content h1 {
   font-size: 3rem;
   margin-bottom: 4rem;
-}
+} */
 
 .home-content p {
   font-size: 1.25rem;
-  color: #555;
+  /* color: #555; */
 }
 
 footer {
   background: #222;
   color: white;
   text-align: center;
-  padding: 1rem 0;
+  padding: 1rem;
+  width: 100%;
 }
