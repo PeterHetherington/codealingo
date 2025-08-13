@@ -2,14 +2,6 @@ import Link from "next/link";
 import { db } from "@/utils/utilities";
 
 export default async function CourseLayoutPage({}) {
-  // fetching all units from the database
-  const units = (await db.query(`SELECT * FROM units`)).rows;
-  console.log(units);
-
-  // fetching all lessons from the database
-  const lessons = (await db.query(`SELECT * FROM lessons`)).rows;
-  console.log(lessons);
-
   // fetching all lessons and group them by unit
   const lessonsPerUnits = (
     await db.query(`SELECT unit_name, ARRAY_AGG(lesson_name) AS thelessons
