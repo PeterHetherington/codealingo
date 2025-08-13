@@ -30,7 +30,7 @@ export default async function Profile() {
   }
 
   return (
-    <div>
+    <div className="bg-purple-950 h-screen text-white">
       <UserProfile profile={userProfile} />
     </div>
   );
