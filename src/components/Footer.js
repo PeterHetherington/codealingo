@@ -4,7 +4,15 @@ import "../styles/Footer.css";
 export default function Footer() {
   return (
     <footer className="footer">
-      <div className="footer-logo-placeholder">Logo</div>
+      <div className="footer-logo-placeholder">
+        <Image
+          src="/owl-front-icon.png"
+          width={100}
+          height={100}
+          alt="Codealingo logo"
+          className="self-center"
+        />
+      </div>
 
       <div className="footer-text">&copy; 2025 Codealingo</div>
 
