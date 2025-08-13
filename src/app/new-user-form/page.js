@@ -26,13 +26,13 @@ export default async function UserForm() {
       [userId, username, first_name, last_name, bio, profile_banner]
     );
 
-    redirect("/[id]/page.js"); // May need to be changed
+    redirect("/profile"); // need to be changed to the account
   }
 
   return (
     <div>
       <h1>Create Your Profile</h1>
-      <form action={userInfoSubmit} method="POST">
+      <form action={userInfoSubmit}>
         {/* <label>
           Username:
           <input type="text" name="username" required className=" mb-1" />
@@ -53,11 +53,10 @@ export default async function UserForm() {
           Profile Banner URL:
           <input type="url" name="profile_banner" className=" mb-1" />
         </label>
+        <button type="submit" className=" border-2">
+          Create Profile
+        </button>
       </form>
-
-      <button type="submit" className=" border-2">
-        Create Profile
-      </button>
     </div>
   );
 }
