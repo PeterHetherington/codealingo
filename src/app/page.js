@@ -12,7 +12,7 @@ const quickSand = Quicksand({
 export default function Home() {
   return (
     <div className="home-container bg-purple-950 overflow-hidden">
-      <NavBar />
+      {/* <NavBar /> */}
 
       <main className="home-content">
         <div>
