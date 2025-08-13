@@ -10,6 +10,7 @@ import {
   SignedOut,
   SignUpButton,
   SignOutButton,
+  UserButton,
 } from "@clerk/nextjs";
 
 export default function AuthButtons() {
@@ -32,6 +33,7 @@ export default function AuthButtons() {
         <SignOutButton>
           <button className="btn">Sign Out</button>
         </SignOutButton>
+        <UserButton />
       </SignedIn>
     </>
   );
