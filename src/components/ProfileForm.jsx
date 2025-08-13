@@ -12,12 +12,6 @@ export default async function ProfileForm() {
     const { first, last, bio, banner } = Object.fromEntries(formData);
     const id = user.id;
     const username = user.username;
-    // console.log(id);
-    // console.log(username);
-    // console.log(first);
-    // console.log(last);
-    // console.log(bio);
-    // console.log(banner);
 
     await db.query(
       `INSERT INTO users(clerk_id, username, first_name, last_name, bio, profile_banner) VALUES ($1, $2, $3, $4, $5, $6)`,
@@ -36,18 +30,6 @@ export default async function ProfileForm() {
       action={addUser}
       className="flex flex-col w-screen p-5 bg-gray-500 h-130"
     >
-      {/* <input
-        name="clerk_id"
-        id="clerk_id"
-        type="hidden"
-        defaultValue={user.id}
-      ></input>
-      <input
-        name="username"
-        id="username"
-        type="hidden"
-        defaultValue={user.username}
-      ></input> */}
       <label htmlFor="first" className="p-1">
         First Name
       </label>

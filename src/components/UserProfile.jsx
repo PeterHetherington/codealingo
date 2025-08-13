@@ -6,8 +6,20 @@ import { Dialog } from "radix-ui";
 import { Cross1Icon } from "@radix-ui/react-icons";
 
 export default async function UserProfile({ profile }) {
-  const { imageUrl } = await currentUser();
+  const { id, imageUrl } = await currentUser();
   //   console.log(profile);
+
+  const langs = (
+    await db.query(
+      `SELECT l.id, l.language_name AS name, l.icon
+      FROM languages l
+      JOIN users_languages ul
+      ON l.id = ul.language_id
+      WHERE ul.user_id = $1`,
+      [id]
+    )
+  ).rows;
+
   return (
     <>
       <div className="flex w-screen h-50">
@@ -36,6 +48,7 @@ export default async function UserProfile({ profile }) {
             width={100}
             height={100}
             alt="profile picture"
+            className="rounded-2xl"
           />
         </div>
         <div>
@@ -72,13 +85,44 @@ export default async function UserProfile({ profile }) {
       <div>
         <p className="p-2 min-h-15">{profile.bio}</p>
       </div>
-      <div className="flex w-screen justify-center items-center p-2 bg-gray-500 my-3">
-        <h1>Badges</h1>
+      <div className="flex flex-col w-screen justify-center items-center p-2 bg-gray-500 my-1 text-white">
+        <h1 className="text-center p-3 pt-1 border-b w-full text-l font-semibold">
+          Badges
+        </h1>
         {/* TODO display user achievements (can only be done once achievements are made) */}
+        <div>
+          <p className="p-3">Complete more lessons to earn some badges</p>
+          <div className="flex flex-col p-3 pt-1 text-center gap-4">
+            <Image
+              src="/owl-wings-raised-icon.png"
+              width={100}
+              height={100}
+              alt="Codealingo logo"
+              className="self-center"
+            />
+          </div>
+        </div>
       </div>
-      <div className="flex w-screen justify-center items-center p-2 bg-gray-500">
-        <h1>Current courses</h1>
-        {/* TODO loop through users courses & display course links */}
+      <div className="flex flex-col w-screen justify-center items-center p-2 bg-gray-500 text-white">
+        <h1 className="text-center p-3 pt-1 border-b w-full text-l font-semibold">
+          Current courses
+        </h1>
+        <div className="flex flex-row gap-1 p-3">
+          {langs.map((lang) => (
+            <div
+              className="flex justify-center content-center border-2 border-gray-400 rounded-2xl p-1 bg-gray-400"
+              key={lang.id}
+            >
+              <Image
+                className="object-cover aspect-square w-full"
+                src={lang.icon}
+                width={100}
+                height={100}
+                alt={lang.name}
+              />
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
