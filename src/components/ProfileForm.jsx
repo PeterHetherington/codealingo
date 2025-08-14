@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 
 export default async function ProfileForm() {
   const user = await currentUser();
-  //   console.log(user);
 
   async function addUser(formData) {
     "use server";

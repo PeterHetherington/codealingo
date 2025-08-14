@@ -18,12 +18,7 @@ export default function LessonQ({
 
   const currentQuestion = questionsAndAnswers[currentIndex];
 
-  //   async function endLesson(formData) {
-  //     const { user, lesson } = Object.fromEntries(formData);
-  //     console.log(user);
-  //     console.log(lesson);
-  //   }
-
+  // reset states & update current index to load next question
   const handleContinue = () => {
     if (selectedOption) {
       setSelectedOption(null);
@@ -33,6 +28,8 @@ export default function LessonQ({
     }
   };
 
+  // check if selected option is correct answer
+  // update score if correct
   const handleCheck = () => {
     if (selectedOption) {
       setChecked(true);
@@ -50,6 +47,7 @@ export default function LessonQ({
         {singleLesson.lesson_name}
       </h3>
 
+      {/* check if there are any more questions to follow */}
       {currentIndex < questionsAndAnswers.length ? (
         <div key={currentQuestion.question}>
           <p className="text-white text-center my-8">
@@ -70,7 +68,8 @@ export default function LessonQ({
               </button>
             ))}
           </div>
-
+          {/* allow users to only check the answer when an option is selected */}
+          {/* replace button with continue button once the check has been made */}
           <div className="flex flex-col mt-8">
             {checked ? (
               <button
@@ -97,7 +96,7 @@ export default function LessonQ({
                 Check
               </button>
             )}
-
+            {/* give user feedback for each question once checked */}
             <div>
               {checked && (
                 <p
@@ -112,6 +111,7 @@ export default function LessonQ({
           </div>
         </div>
       ) : (
+        // display end of lesson form once all questions have been answered
         <div>
           <div className="text-green-600 font-semibold mt-6 text-center">
             <p>Well done, lesson completed!</p>
