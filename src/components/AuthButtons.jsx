@@ -16,8 +16,6 @@ import {
 export default function AuthButtons() {
   const { user } = useUser();
 
-  console.log(user);
-
   return (
     <>
       <SignedOut>
