@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { GoHomeFill } from "react-icons/go";
-import { ImProfile } from "react-icons/im";
-import { LuNewspaper } from "react-icons/lu";
 import { MdAccountBox } from "react-icons/md";
 import { FaCode } from "react-icons/fa6";
 import {

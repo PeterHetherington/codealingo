@@ -23,6 +23,7 @@ export default async function UserProfile({ profile }) {
 
   return (
     <>
+      {/* profile banner section */}
       <div className="flex w-screen h-50">
         {profile.profile_banner ? (
           <Image
@@ -42,6 +43,7 @@ export default async function UserProfile({ profile }) {
           />
         )}
       </div>
+      {/* profile picture */}
       <div className="flex gap-3 p-2">
         <div>
           <Image
@@ -52,12 +54,14 @@ export default async function UserProfile({ profile }) {
             className="rounded-2xl"
           />
         </div>
+        {/* user information */}
         <div>
           <p className="text-2xl">{profile.username}</p>
           <p className="text-gray-500">
             {profile.first_name} {profile.last_name}
           </p>
         </div>
+        {/* dialog containing edit profile form */}
         <div>
           <Dialog.Root>
             <Dialog.Trigger>
@@ -85,6 +89,7 @@ export default async function UserProfile({ profile }) {
       <div>
         <p className="p-2 min-h-15">{profile.bio}</p>
       </div>
+      {/* badges section */}
       <div className="flex flex-col w-screen justify-center items-center p-2 bg-gray-500 my-1 text-white">
         <h1 className="text-center p-3 pt-1 border-b w-full text-l font-semibold">
           Badges
@@ -103,6 +108,7 @@ export default async function UserProfile({ profile }) {
           </div>
         </div>
       </div>
+      {/* users current courses */}
       <div className="flex flex-col w-screen justify-center items-center p-2 bg-gray-500 text-white">
         <h1 className="text-center p-3 pt-1 border-b w-full text-l font-semibold">
           Current courses
