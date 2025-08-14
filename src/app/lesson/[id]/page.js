@@ -4,52 +4,59 @@ export default async function IndividualLesson({ params }) {
   const { id } = await params;
 
   const singleLesson = (
-    await db.query(`SELECT * FROM lessons WHERE lesson_id = $1`, [id])
+    await db.query(`SELECT * FROM lessons WHERE id = $1`, [id])
   ).rows[0];
-  const prereadings = (
-    await db.query(`SELECT * FROM lesson_reading WHERE lesson_id = $1`, [id])
-  ).rows;
 
-  const questions = (
-    await db.query(`SELECT * FROM questions WHERE lesson_id = $1`, [id])
-  ).rows;
+  console.log(singleLesson);
 
-  const answers = (
-    await db.query(`SELECT * FROM answer_options WHERE question_id = $1`, [id])
+  // fetching all questions and answers for a single lesson
+
+  const questionsAndAnswers = (
+    await db.query(
+      `SELECT 
+    q.question, 
+    qt.name AS qtype, 
+    (
+        SELECT json_agg(
+            json_build_object(
+                'option', a.option, 
+                'is_answer', a.is_answer
+            )
+        )
+        FROM answer_options a 
+        WHERE a.question_id = q.id
+    ) AS answers 
+FROM questions q 
+JOIN types qt ON q.type = qt.id
+WHERE q.lesson_id = $1
+GROUP BY q.question, qt.name, q.id`,
+      [id]
+    )
   ).rows;
+  console.log(questionsAndAnswers);
 
   return (
     <div mode="modal">
-      <div className="pre-reading">
-        <h3>{singleLesson.name}</h3>
-        <h4>Pre-reading</h4>
-        <p>
-          {prereadings.map((prereading) => (
-            <div key={prereading.id}>
-              <p>{prereading.content}</p>
-            </div>
-          ))}
-        </p>
-      </div>
-      <div className="questions">
-        <h4>Questions</h4>
-        <p>
-          {questions.map((question) => (
-            <div key={question.id}>
-              <p>{question.question}</p>
-            </div>
-          ))}
-        </p>
-      </div>
-      <div className="questions">
-        <h4>Answers</h4>
-        <p>
-          {answers.map((answer) => (
-            <div key={answer.id}>
-              <p>{answer.option}</p>
-            </div>
-          ))}
-        </p>
+      {/* the title of the lesson */}
+      <h3 className=" text-2xl font-bold text-red-500">
+        {" "}
+        {singleLesson.lesson_name}
+      </h3>
+
+      {/* Mapping through the questions of the lesson  */}
+      <div key={questionsAndAnswers.question_id}>
+        {questionsAndAnswers.map((questionsAndAnswer) => (
+          <div key={questionsAndAnswer.question}>
+            <p className="text-indigo-500 ">{questionsAndAnswer.question}</p>
+
+            {/* then selecting the answers specific to that question */}
+            <ul className="list-disc pl-6">
+              {questionsAndAnswer.answers.map((answer) => (
+                <li key={answer.option}>{answer.option}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );
