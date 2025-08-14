@@ -5,10 +5,10 @@ import { ImCog } from "react-icons/im";
 import { Dialog } from "radix-ui";
 import { Cross1Icon } from "@radix-ui/react-icons";
 import Link from "next/link";
+import EditProfileForm from "./EditProfileForm";
 
 export default async function UserProfile({ profile }) {
   const { id, imageUrl } = await currentUser();
-  //   console.log(profile);
 
   const langs = (
     await db.query(
@@ -67,17 +67,16 @@ export default async function UserProfile({ profile }) {
               <Dialog.Overlay className="fixed inset-0 bg-black/60" />
               <Dialog.Content className="fixed bg-gray-700 p-8 rounded-md shadow left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md">
                 <Dialog.Close>
-                  <div className="flex space-x-55">
-                    <Dialog.Title className="text-2xl text-white">
+                  <div className="flex items-center justify-between w-80 px-3 pb-3">
+                    <Dialog.Title className=" text-xl text-white">
                       Edit profile
                     </Dialog.Title>
-                    <div>
+                    <div className="">
                       <Cross1Icon />
                     </div>
                   </div>
                 </Dialog.Close>
-                {/* TODO make an edit profile form */}
-                {/* <EditProfileForm current={profile} /> */}
+                <EditProfileForm current={profile} />
               </Dialog.Content>
             </Dialog.Portal>
           </Dialog.Root>
