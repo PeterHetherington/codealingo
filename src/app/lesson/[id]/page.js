@@ -1,13 +1,19 @@
+import LessonQ from "@/components/LessonQ";
 import { db } from "@/utils/utilities";
+import { auth } from "@clerk/nextjs/server";
 
 export default async function IndividualLesson({ params }) {
   const { id } = await params;
+  const { userId } = await auth();
 
   const singleLesson = (
-    await db.query(`SELECT * FROM lessons WHERE id = $1`, [id])
+    await db.query(
+      `SELECT l.id, l.lesson_name, la.language_name FROM lessons l JOIN units u ON l.unit_id = u.id JOIN languages la ON u.language_id = la.id WHERE l.id = $1`,
+      [id]
+    )
   ).rows[0];
 
-  console.log(singleLesson);
+  // console.log(singleLesson);
 
   // fetching all questions and answers for a single lesson
 
@@ -38,26 +44,12 @@ GROUP BY q.question, qt.name, q.id`,
   return (
     <div mode="modal">
       {/* the title of the lesson */}
-      <h3 className=" text-2xl font-bold text-red-500">
-        {" "}
-        {singleLesson.lesson_name}
-      </h3>
-
-      {/* Mapping through the questions of the lesson  */}
-      <div key={questionsAndAnswers.question_id}>
-        {questionsAndAnswers.map((questionsAndAnswer) => (
-          <div key={questionsAndAnswer.question}>
-            <p className="text-indigo-500 ">{questionsAndAnswer.question}</p>
-
-            {/* then selecting the answers specific to that question */}
-            <ul className="list-disc pl-6">
-              {questionsAndAnswer.answers.map((answer) => (
-                <li key={answer.option}>{answer.option}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+      <LessonQ
+        singleLesson={singleLesson}
+        questionsAndAnswers={questionsAndAnswers}
+        lesson_id={id}
+        user_id={userId}
+      />
     </div>
   );
 }
