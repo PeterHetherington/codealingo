@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ImCog } from "react-icons/im";
 import { Dialog } from "radix-ui";
 import { Cross1Icon } from "@radix-ui/react-icons";
+import Link from "next/link";
 
 export default async function UserProfile({ profile }) {
   const { id, imageUrl } = await currentUser();
@@ -113,13 +114,15 @@ export default async function UserProfile({ profile }) {
               className="flex justify-center content-center border-2 border-gray-400 rounded-2xl p-1 bg-gray-400"
               key={lang.id}
             >
-              <Image
-                className="object-cover aspect-square w-full"
-                src={lang.icon}
-                width={100}
-                height={100}
-                alt={lang.name}
-              />
+              <Link href={`/course/${lang.name}`}>
+                <Image
+                  className="object-cover aspect-square w-full"
+                  src={lang.icon}
+                  width={100}
+                  height={100}
+                  alt={lang.name}
+                />
+              </Link>
             </div>
           ))}
         </div>
