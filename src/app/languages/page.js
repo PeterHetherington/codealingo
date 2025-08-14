@@ -101,7 +101,7 @@ export default async function Languages() {
                             {language.language_name}
                           </h1>
                           <Link
-                            href={`/profile`}
+                            href={`/course/${language.language_name}`}
                             className="border mt-2 p-3 px-5 justify-center self-center rounded-2xl bg-gray-300"
                           >
                             Go to course

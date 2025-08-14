@@ -15,7 +15,7 @@ import {
 
 export default function Navigation() {
   return (
-    <header className="fixed w-full flex items-center p-6 gap-4 h-18 bg-black text-white">
+    <header className="fixed w-full flex items-center p-6 gap-4 h-18 bg-black text-white z-50">
       <div className="flex">
         <nav className="flex gap-4 text-3xl text-white">
           <Link href="/">
