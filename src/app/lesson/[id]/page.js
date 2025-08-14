@@ -3,58 +3,35 @@ import { db } from "@/utils/utilities";
 export default async function IndividualLesson({ params }) {
   const { id } = await params;
 
-  const singleLesson = (
-    await db.query(`SELECT * FROM lessons WHERE id = $1`, [id])
-  ).rows[0];
+  // fetching all readings for a single lesson
 
-  console.log(singleLesson);
-
-  // fetching all questions and answers for a single lesson
-
-  const questionsAndAnswers = (
+  const readings = (
     await db.query(
-      `SELECT 
-    q.question, 
-    qt.name AS qtype, 
-    (
-        SELECT json_agg(
-            json_build_object(
-                'option', a.option, 
-                'is_answer', a.is_answer
-            )
-        )
-        FROM answer_options a 
-        WHERE a.question_id = q.id
-    ) AS answers 
-FROM questions q 
-JOIN types qt ON q.type = qt.id
-WHERE q.lesson_id = $1
-GROUP BY q.question, qt.name, q.id`,
+      `SELECT lr.content AS reading, pt.name AS rtype
+FROM lesson_reading lr
+JOIN pre_types pt
+ON lr.pre_type =  pt.id
+WHERE lr.lesson_id = $1`,
       [id]
     )
   ).rows;
-  console.log(questionsAndAnswers);
+  console.log(readings);
 
   return (
     <div mode="modal">
-      {/* the title of the lesson */}
-      <h3 className=" text-2xl font-bold text-red-500">
-        {" "}
-        {singleLesson.lesson_name}
-      </h3>
-
-      {/* Mapping through the questions of the lesson  */}
-      <div key={questionsAndAnswers.question_id}>
-        {questionsAndAnswers.map((questionsAndAnswer) => (
-          <div key={questionsAndAnswer.question}>
-            <p className="text-indigo-500 ">{questionsAndAnswer.question}</p>
-
-            {/* then selecting the answers specific to that question */}
-            <ul className="list-disc pl-6">
-              {questionsAndAnswer.answers.map((answer) => (
-                <li key={answer.option}>{answer.option}</li>
-              ))}
-            </ul>
+      {/* Mapping through the readings of the lesson  */}
+      <div
+        key={readings.reaid}
+        className="flex flex-col items-center justify-center"
+      >
+        {readings.map((reading) => (
+          <div
+            key={readings.lesson_id}
+            className="flex  flex-col items-center justify-center p-4 m-2 border bg-gray-600 bg-gray-600, hover:bg-purple-400 rounded-lg shadow-md w-240 h-30"
+          >
+            <p className="text-indigo-500 flex  flex-col items-center justify-center">
+              {reading.reading}
+            </p>
           </div>
         ))}
       </div>
