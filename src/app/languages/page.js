@@ -30,7 +30,7 @@ export default async function Languages() {
 
   async function addCourse(formData) {
     "use server";
-    const { language_id } = Object.fromEntries(formData);
+    const { language_id, language_name } = Object.fromEntries(formData);
     const user_id = userId;
 
     // console.log(language_id);
@@ -47,7 +47,7 @@ export default async function Languages() {
 
     // redirect user
     // redirect(`/lesson/${language_id}`); // need to fix lessons page
-    redirect(`/profile`);
+    redirect(`/course/${language_name}`);
   }
 
   return (
@@ -87,6 +87,12 @@ export default async function Languages() {
                             id="language_id"
                             type="hidden"
                             defaultValue={language.id}
+                          ></input>
+                          <input
+                            name="language_name"
+                            id="language_name"
+                            type="hidden"
+                            defaultValue={language.language_name}
                           ></input>
                           <button
                             type="submit"
