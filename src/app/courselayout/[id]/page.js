@@ -26,7 +26,6 @@ ORDER BY units.id
       [id]
     )
   ).rows;
-  console.log(unitsPerLanguage);
 
   return (
     <>

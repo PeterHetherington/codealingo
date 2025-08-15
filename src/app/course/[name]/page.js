@@ -4,6 +4,7 @@ import Link from "next/link";
 import { FaCircle } from "react-icons/fa";
 import { Quicksand } from "next/font/google";
 import { notFound } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 
 const quickSand = Quicksand({
   variable: "--font-Quicksand",
@@ -12,6 +13,9 @@ const quickSand = Quicksand({
 
 export default async function Course({ params }) {
   const slug = await params;
+  const { userId, redirectToSignIn } = await auth();
+
+  if (!userId) return redirectToSignIn();
 
   const res = (
     await db.query(
@@ -25,6 +29,16 @@ export default async function Course({ params }) {
       [slug.name]
     )
   ).rows;
+
+  // get users completed lessons
+  // TODO alter sql to filer by course
+  const completedLessons = await db.query(
+    `SELECT ARRAY_AGG(lesson_id) as lesson_ids FROM user_progress WHERE user_id = $1`,
+    [userId]
+  );
+
+  // ensure array isnt undefined for users with no progress
+  const completed = completedLessons.rows[0]?.lesson_ids || [];
 
   if (res.length === 0) {
     notFound();
@@ -45,18 +59,28 @@ export default async function Course({ params }) {
             <h1 className="p-5 border-t border-black/60 bg-black/30">
               {unit.unit_name}
             </h1>
-            {unit.lesson_id.map((id, index) => (
-              <div
-                key={id}
-                className={`justify-self-center w-35 p-1 m-2 flex ${
-                  index % 2 === 0 ? "justify-start" : "justify-end"
-                }`}
-              >
-                <Link href={`/lesson/${id}`} className="">
-                  <FaCircle className="text-6xl" />
-                </Link>
-              </div>
-            ))}
+            {/* display lessons in a snake path */}
+            {/* disable link to previously completed lessons, lesson recap to be added at a later date */}
+            {unit.lesson_id.map((id, index) => {
+              const finished = completed.includes(id);
+              return (
+                <div
+                  key={id}
+                  className={`justify-self-center w-35 p-1 m-2 flex ${
+                    // check if odd or even, change alignment
+                    index % 2 === 0 ? "justify-start" : "justify-end"
+                  }`}
+                >
+                  {finished ? (
+                    <FaCircle className="text-6xl text-green-600" />
+                  ) : (
+                    <Link href={`/lesson/${id}`} className="">
+                      <FaCircle className="text-6xl text-white" />
+                    </Link>
+                  )}
+                </div>
+              );
+            })}
           </div>
         ))}
       </div>

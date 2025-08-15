@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import * as React from "react";
 import { Dialog } from "radix-ui";
 import { Cross1Icon } from "@radix-ui/react-icons";
+import { HiLightBulb } from "react-icons/hi";
 
 export default async function IndividualLesson({ params }) {
   const { id } = await params;
@@ -43,7 +44,7 @@ GROUP BY q.question, qt.name, q.id`,
 
   const readings = (
     await db.query(
-      `SELECT lr.content AS reading, pt.name AS rtype
+      `SELECT lr.content AS reading, pt.name AS rtype, lr.id
 FROM lesson_reading lr
 JOIN pre_types pt
 ON lr.pre_type =  pt.id
@@ -55,9 +56,9 @@ WHERE lr.lesson_id = $1`,
   return (
     <div>
       {/* Modal text the reading section of the lesson */}
-      <Dialog.Root>
+      <Dialog.Root defaultOpen>
         <Dialog.Trigger className="flex items-center justify-center rounded-md text-xl px-4 cursor-pointer text-pink-500 bg-gray-500 shadow-md ml-4 mt-2">
-          Start the lesson
+          <HiLightBulb />
         </Dialog.Trigger>
 
         <Dialog.Portal>
@@ -74,7 +75,7 @@ WHERE lr.lesson_id = $1`,
                 <div className="flex flex-col items-center justify-center w-full gap-2">
                   {readings.map((reading) => (
                     <div
-                      key={reading.lesson_id}
+                      key={reading.id}
                       className="flex flex-col items-center justify-center p-4 w-full border bg-gray-600 hover:bg-pink-500 rounded-lg shadow-md"
                     >
                       <p className="text-white   text-sm text-center">
